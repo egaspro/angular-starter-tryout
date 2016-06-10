@@ -8,7 +8,9 @@ var commonConfig = {
   module: {
     loaders: [
       // TypeScript
-      { test: /\.ts$/, loader: 'ts-loader' }
+      { test: /\.ts$/, loader: 'ts-loader' },
+      { test: /\.html$/, loader: "html" },
+      //{ test: /\.css$/, loader: "style!css?" },
     ]
   },
   plugins: [
@@ -19,9 +21,14 @@ var commonConfig = {
 
 var clientConfig = {
   target: 'web',
-  entry: './src/client',
+  entry: './client/client',
   output: {
     path: path.join(__dirname, 'dist', 'client')
+  },
+  module: {
+    loaders: [      
+      { test: /\.css$/, loader: "style!css" },
+    ]
   },
   node: {
     global: true,
@@ -35,9 +42,14 @@ var clientConfig = {
 
 var serverConfig = {
   target: 'node',
-  entry: './src/server',
+  entry: './server/server',
   output: {
     path: path.join(__dirname, 'dist', 'server')
+  },
+  module: {
+    loaders: [      
+      { test: /\.css$/, loader: "style!css" },
+    ]
   },
   externals: checkNodeImport,
   node: {
@@ -61,7 +73,7 @@ var defaultConfig = {
   },
   context: __dirname,
   resolve: {
-    root: path.join(__dirname, '/src')
+    root: path.join(__dirname, './')
   },
   output: {
     publicPath: path.resolve(__dirname),
